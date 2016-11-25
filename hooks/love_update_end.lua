@@ -10,13 +10,21 @@ if state == 1 then for _,v in pairs(scriptnames) do
 			teley = tonumber(string.sub(string.match(v, '%D%d+$'), 2, -1))
 
 			--Display debug text
-			successfulDoink = true;
+			successfulDoink = true
 
-			--Write script lines
-			scriptlines[1] = "test"
-
-			--Save the script back to the level data
+			--Write script lines and save the script back to the level data
+			teleScriptName = "t" .. telex .. "_" .. teley .. "b"
+			scriptlines[1] = "iftrinkets(0," .. teleScriptName .. ")"
 			scripts[scriptname] = table.copy(scriptlines)
+
+			--Now to create the internal script!
+			scriptname = teleScriptName
+			table.insert(scriptnames, teleScriptName)
+			editingline = 1
+			scriptlines[1] = "gotoroom(" .. (telex - 1) .. "," .. (teley - 1) .. ")"
+			internalscript = true
+			scripts[teleScriptName] = table.copy(scriptlines)
+			processflaglabelsreverse()
 		end
 	end
 end end

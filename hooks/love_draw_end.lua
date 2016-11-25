@@ -1,3 +1,8 @@
+--[[
+Used for debug
+Uncomment "successfulDoink = true" in love_update_end.lua to activate
+]]
+
 if successfulDoink == true then
 	love.graphics.setColor(255, 255, 0, 255)
 	if telex == nil or teley == nil then
