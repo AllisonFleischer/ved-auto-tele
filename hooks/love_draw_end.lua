@@ -1,5 +1,9 @@
 if successfulDoink == true then
 	love.graphics.setColor(255, 255, 0, 255)
-	love.graphics.print("Regex validated!", 8, love.graphics.getHeight()-16)
+	if telex == nil or teley == nil then
+		love.graphics.print("Regex validated! Coordinates nil...", 8, love.graphics.getHeight()-16)
+	else
+		love.graphics.print("Regex validated! (" .. telex .. "," .. teley .. ")", 8, love.graphics.getHeight()-16)
+	end
 	love.graphics.setColor(255, 255, 255, 255)
 end
