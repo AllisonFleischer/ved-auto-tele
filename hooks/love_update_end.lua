@@ -1,5 +1,6 @@
 if state == 1 then for _,v in pairs(scriptnames) do
 	if string.match(v, '^t%d+%D%d+$') ~= nil then --Is this a teleport script?
+		intScriptExists = false
 		--Yep! Load the script without opening the script editor
 		scriptname = v
 		scriptlines = table.copy(scripts[scriptname])
@@ -14,17 +15,29 @@ if state == 1 then for _,v in pairs(scriptnames) do
 			scriptlines[1] = "iftrinkets(0," .. teleScriptName .. ")"
 			scripts[scriptname] = table.copy(scriptlines)
 
-			--Now to create the internal script!
-			scriptname = teleScriptName
-			table.insert(scriptnames, teleScriptName)
-			editingline = 1
-			scriptlines[1] = "gotoroom(" .. (telex - 1) .. "," .. (teley - 1) .. ")"
-			internalscript = true
-			scripts[teleScriptName] = table.copy(scriptlines)
-			processflaglabelsreverse()
+			--Prevent internal script duplication
+			for _,v2 in pairs(scriptnames) do
+				if string.match(v2, '^t%d+%D%d+b$') ~= nil then
+					intScriptExists = true
+					temporaryroomname = "WARNING: Duplicate loadscript!"
+					temporaryroomnametimer = 180
+					--TODO: Automate loadscript name fixing
+				end
+			end
 
-			temporaryroomname = "Created teleport script to (" .. telex .. "," .. teley .. ")!"
-			temporaryroomnametimer = 180
+			if intScriptExists == false then
+				--Now to create the internal script!
+				scriptname = teleScriptName
+				table.insert(scriptnames, teleScriptName)
+				editingline = 1
+				scriptlines[1] = "gotoroom(" .. (telex - 1) .. "," .. (teley - 1) .. ")"
+				internalscript = true
+				scripts[teleScriptName] = table.copy(scriptlines)
+				processflaglabelsreverse()
+
+				temporaryroomname = "Created teleport script to (" .. telex .. "," .. teley .. ")!"
+				temporaryroomnametimer = 180
+			end
 		end
 	end
 end end
