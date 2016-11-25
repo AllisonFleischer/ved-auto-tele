@@ -5,5 +5,13 @@ if state == 1 then for _,v in pairs(scriptnames) do
 		teley = tonumber(string.sub(string.match(v, '%D%d+$'), 2, -1))
 
 		successfulDoink = true;
+
+		--Load the script without opening the script editor
+		scriptname = v
+		scriptlines = table.copy(scripts[scriptname])
+		processflaglabels()
+
+		if scriptlines[1] == "" and scriptlines[2] == nil then emptyScript = true;
+		else emptyScript = false; end
 	end
 end end
