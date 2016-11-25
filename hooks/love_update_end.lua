@@ -9,9 +9,6 @@ if state == 1 then for _,v in pairs(scriptnames) do
 			telex = tonumber(string.sub(string.match(v, 't%d+%D'), 2, -2))
 			teley = tonumber(string.sub(string.match(v, '%D%d+$'), 2, -1))
 
-			--Display debug text
-			successfulDoink = true
-
 			--Write script lines and save the script back to the level data
 			teleScriptName = "t" .. telex .. "_" .. teley .. "b"
 			scriptlines[1] = "iftrinkets(0," .. teleScriptName .. ")"
@@ -25,6 +22,9 @@ if state == 1 then for _,v in pairs(scriptnames) do
 			internalscript = true
 			scripts[teleScriptName] = table.copy(scriptlines)
 			processflaglabelsreverse()
+
+			temporaryroomname = "Created teleport script to (" .. telex .. "," .. teley .. ")!"
+			temporaryroomnametimer = 180
 		end
 	end
 end end
