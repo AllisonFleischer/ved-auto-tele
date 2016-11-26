@@ -17,7 +17,7 @@ if state == 1 then for _,v in pairs(scriptnames) do
 
 			--Prevent internal script duplication
 			for _,v2 in pairs(scriptnames) do
-				if string.match(v2, '^t%d+%D%d+b$') ~= nil then
+				if string.match(v2, '^t' .. telex .. '%D'.. teley .. 'b$') ~= nil then
 					intScriptExists = true
 					temporaryroomname = "WARNING: Duplicate loadscript!"
 					temporaryroomnametimer = 180
